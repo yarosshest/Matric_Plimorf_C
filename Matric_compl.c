@@ -4,12 +4,38 @@
 #include "Matric .h"
 #include "compl_num.h"
 #include <assert.h>
+#include <vcruntime_string.h>
 
-struct Matric init_compl_Matric(int element_size, int size,void* ar)
+//long* sum_el_int(long* el1, long* el2)
+//{
+//    struct compl a1 = (struct compl)*el1;
+//    struct compl a2 = *el2;
+//    struct compl sum = sum_compl(a1,a2);
+//    return (long *) &sum;
+//}
+//
+//long* mult_el_int(long* el1, long* el2)
+//{
+//    int a1 = *el1;
+//    int a2 = *el2;
+//    int mult = a1 * a2;
+//
+//    return (long *) &mult;
+////    return (void *) ((int) el1 * (int) el2);
+//}
+
+void print_el_compl( struct compl* el1)
+{
+    struct compl a1 = *el1;
+
+    printf(" %d+%di |",a1.x,a1.y);
+}
+
+struct Matric init_compl_Matric(int element_size, int size,long* ar)
 {
     assert(size > 0);
     struct Matric_compl *arT = (struct Matric_compl* ) calloc(1, sizeof (struct Matric_compl));
-    arT->mas = ar;
+//    arT->mas = ar;
 
     struct Matric cont = init_Matric(arT);
 
@@ -19,6 +45,11 @@ struct Matric init_compl_Matric(int element_size, int size,void* ar)
     cont.element_size = element_size;
     cont.size = size;
     cont.print = print_compl_Matric;
+
+    cont.mas =ar;
+
+    cont.print_el = print_el_compl;
+
 
     return cont;
 }
@@ -110,10 +141,10 @@ void print_compl_Matric(struct Matric mat)
         printf("\n");
     }
 }
-struct compl * vvod_compl_Matric(int size)
+long * vvod_compl_Matric(int size)
 {
     struct compl c;
-    struct compl *a = (struct compl*)calloc(1,size*size * sizeof(struct compl));
+    long *a = (long*)calloc(1,size*size * sizeof(struct compl));
 
     for (int i = 0; i < size; i++)
     {
@@ -124,7 +155,14 @@ struct compl * vvod_compl_Matric(int size)
             scanf("%d%d", &x, &y);
             c.x = x;
             c.y = y;
-            a[i*size+j] = c;
+            memcpy((a+i*size+j),&c, sizeof(struct compl));
+        }
+    }
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size;j++)
+        {
+            print_el_compl((a+i*size+j));
         }
     }
     return a;

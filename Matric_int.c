@@ -4,11 +4,34 @@
 #include "stdlib.h"
 #include <assert.h>
 
-struct Matric init_int_Matric(int element_size, int size,void* ar)
+long* sum_el_int(long* el1, long* el2)
+{
+    int a1 = *el1;
+    int a2 = *el2;
+    int sum = a1 + a2;
+    return (long *) &sum;
+}
+
+long* mult_el_int(long* el1, long* el2)
+{
+    int a1 = *el1;
+    int a2 = *el2;
+    int mult = a1 * a2;
+
+    return (long *) &mult;
+//    return (void *) ((int) el1 * (int) el2);
+}
+
+void print_el_int(long* el1)
+{
+    int a1 = *((int*) el1);
+    printf(" %d |",a1);
+}
+struct Matric init_int_Matric(int element_size, int size,long* ar)
 {
     assert(size > 0);
     struct Matric_int *arT = (struct Matric_int* ) calloc(1, sizeof (struct Matric_int));
-    arT->mas = ar;
+//    arT->mas = ar;
 
     struct Matric cont = init_Matric(arT);
 
@@ -18,6 +41,12 @@ struct Matric init_int_Matric(int element_size, int size,void* ar)
     cont.element_size = element_size;
     cont.size = size;
     cont.print = print_int_Matric;
+
+    cont.sum_el = sum_el_int;
+    cont.mult_el = mult_el_int;
+    cont.print_el = print_el_int;
+
+    cont.mas = ar;
 
     return cont;
 }
@@ -65,8 +94,7 @@ struct Matric sum_int_Matric(struct Matric mat1, struct Matric mat2)
     {
         for (int j = 0; j <size;j++)
         {
-            mr[i*size+j] = 0;
-            mr[i*size+j] = mr[i*size+j] + m1.mas[i*size+j]+m2.mas[i*size+j];
+            mr[i*size+j] = m1.mas[i*size+j]+m2.mas[i*size+j];
         }
     }
     return ret;
@@ -111,17 +139,18 @@ void print_int_Matric(struct Matric mat)
     }
 }
 
-int * vvod_int_Matric(int size)
+long * vvod_int_Matric(int size)
 {
-    int *a = (int*)calloc(1,size*size * sizeof(int));
+    long *a = (long*)calloc(1,size*size * sizeof(int));
 
     for (int i = 0; i < size; i++)
     {
         for (int j = 0; j < size;j++)
         {
-            scanf("%d", &a[i*size+j]);
+            scanf("%ld", &a[(i*size+j)]);
         }
     }
+
     return a;
 }
 
