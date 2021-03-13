@@ -13,6 +13,22 @@ void print_el_compl_Matric(void* el)
     printf(" %d+%di |",a.x,a.y);
 }
 
+void ** zero_compl_Matric(int size)
+{
+    int* a = (int *) calloc(1, size * size * sizeof(int));
+    void** ar = (void **) calloc(1,size * size*sizeof(a));
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size;j++)
+        {
+            a[i*size+j] = 0;
+            ar[i*size+j] = &a[i*size+j];
+
+        }
+    }
+    return ar;
+}
+
 struct Matric init_compl_Matric(int element_size, int size,void** ar)
 {
     assert(size > 0);
@@ -25,6 +41,7 @@ struct Matric init_compl_Matric(int element_size, int size,void** ar)
     cont.mas = ar;
 
     cont.print_el = print_el_compl_Matric;
+    cont.zero_matric = zero_compl_Matric;
 
     return cont;
 }
@@ -33,7 +50,7 @@ void ** vvod_compl_Matric(int size)
 {
     struct compl c;
     struct compl *a = (struct compl*)calloc(1,size*size * sizeof(struct compl));
-    void** array = (void**)malloc(size*size * sizeof(void*));
+    void** ar = (void**)malloc(size*size * sizeof(a));
 
     for (int i = 0; i < size; i++)
     {
@@ -44,8 +61,9 @@ void ** vvod_compl_Matric(int size)
             scanf("%d%d", &x, &y);
             c.x = x;
             c.y = y;
-            memcpy(&array[i*size+j],&c,sizeof(struct compl));
+            memcpy(&a[i*size+j],&c,sizeof(struct compl));
+            ar[i*size+j] = &a[i*size+j];
         }
     }
-    return array;
+    return ar;
 }

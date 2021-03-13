@@ -43,10 +43,7 @@ int main() {
     if (type == 1)
     {
         printf("Введите элементы матрицы\n");
-        void** ar = vvod_int_Matric(size);
-        void* test = ar[0];
-        int* test2 = (int*) test;
-        Mat1 = init_int_Matric(sizeof(int), size,ar);
+        Mat1 = init_int_Matric(sizeof(int), size,vvod_int_Matric(size));
     }
     else if (type == 2)
     {
@@ -115,18 +112,9 @@ int main() {
     }
     if (action ==3)
     {
-        struct Matric Mat2;
-        if (type == 1)
-        {
-            Mat2 = init_int_Matric(sizeof(int), size, Mat1.mas);
-        }
-        else if (type == 2)
-        {
-            Mat2 = init_compl_Matric(sizeof(struct compl), size, Mat1.mas);
-        }
-        trans_Matric(Mat1,Mat2);
+        trans_Matric(&Mat1);
         printf("Результат транспонирования:\n");
-        print_Matric(Mat2);
+        print_Matric(Mat1);
     }
     return 0;
 }
