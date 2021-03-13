@@ -43,16 +43,19 @@ int main() {
     if (type == 1)
     {
         printf("Введите элементы матрицы\n");
-        Mat1 = init_int_Matric(sizeof(int), size, vvod_int_Matric(size));
+        void** ar = vvod_int_Matric(size);
+        void* test = ar[0];
+        int* test2 = (int*) test;
+        Mat1 = init_int_Matric(sizeof(int), size,ar);
     }
     else if (type == 2)
     {
         printf("Введите элементы матрицы, разделяя вещественную часть и мнимою пробелом\n");
-        Mat1 = init_compl_Matric(sizeof(int), size, vvod_compl_Matric(size));
+        Mat1 = init_compl_Matric(sizeof(struct compl), size, vvod_compl_Matric(size));
     }
     printf("____________________________\n");
     printf("Вы ввели матрицу:\n");
-    Mat1.print(Mat1);
+    print_Matric(Mat1);
     printf("____________________________\n");
 
     int action;
@@ -82,10 +85,10 @@ int main() {
         }
         else if (type == 2)
         {
-            Mat2 = init_compl_Matric(sizeof(int), size, vvod_compl_Matric(size));
+            Mat2 = init_compl_Matric(sizeof(struct compl), size, vvod_compl_Matric(size));
         }
         printf("Вы ввели матрицу:\n");
-        Mat2.print(Mat2);
+        print_Matric(Mat2);
         printf("________________________________\n");
         struct Matric otv = Mat1.mult(Mat1,Mat2);
         printf("Результат умножения:\n");
@@ -101,7 +104,7 @@ int main() {
         }
         else if (type == 2)
         {
-            Mat2 = init_compl_Matric(sizeof(int), size, vvod_compl_Matric(size));
+            Mat2 = init_compl_Matric(sizeof(struct compl), size, vvod_compl_Matric(size));
         }
         printf("Вы ввели матрицу:\n");
         Mat2.print(Mat2);
@@ -112,9 +115,18 @@ int main() {
     }
     if (action ==3)
     {
-        struct Matric otv = Mat1.trans(Mat1);
+        struct Matric Mat2;
+        if (type == 1)
+        {
+            Mat2 = init_int_Matric(sizeof(int), size, Mat1.mas);
+        }
+        else if (type == 2)
+        {
+            Mat2 = init_compl_Matric(sizeof(struct compl), size, Mat1.mas);
+        }
+        trans_Matric(Mat1,Mat2);
         printf("Результат транспонирования:\n");
-        otv.print(otv);
+        print_Matric(Mat2);
     }
     return 0;
 }
