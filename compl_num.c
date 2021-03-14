@@ -1,17 +1,23 @@
 ﻿#include "compl_num.h"
 #include <stdlib.h>
-struct compl sum_compl (struct compl c1,struct compl c2)
+void* sum_compl (void* c1,void* c2)
 {
+    struct compl cp1 = *(struct compl*) c1;
+    struct compl cp2 = *(struct compl*) c2;
+
     struct compl * res = (struct compl*)calloc(1,sizeof(struct compl));
-    res->x = c1.x + c2.x;
-    res->y = c1.y + c2.y;
-    return *res;
+    res->x = cp1.x + cp2.x;
+    res->y = cp1.y + cp2.y;
+    return res;
 }
 
-struct compl mult_compl (struct compl c1,struct compl c2)
+void* mult_compl (void* c1,void* c2)
 {
+    struct compl cp1 = *(struct compl*) c1;
+    struct compl cp2 = *(struct compl*) c2;
+
     struct compl * res = (struct compl*)calloc(1,sizeof(struct compl));
-    res->x = c1.x * c2.x - c1.y * c2.y;
-    res->y = c1.y *c1.x + c2.y *c2.x;
-    return *res;
+    res->x = cp1.x * cp2.x - cp1.y * cp2.y;
+    res->y = cp1.y *cp1.x + cp2.y *cp2.x;
+    return res;
 }

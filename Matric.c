@@ -9,7 +9,6 @@
 void print_Matric(struct Matric mat)
 {
     int size = mat.size;
-    void* am = *(void**) mat.mas;
     for (int i = 0; i < size; i++)
     {
         for (int j = 0; j < size;j++)
@@ -48,13 +47,49 @@ struct Matric sum_Matric(struct Matric mat1,struct Matric mat2)
     int bit = mat1.element_size;
 
     void** ar = mat1.zero_matric(mat1.size);
+    void* sum;
+
+    struct Matric res = mat1;
 
     for (int i = 0; i < size; i++)
     {
         for (int j = 0; j < size;j++)
         {
-            memcpy(ar[j*size+i],mat1->mas[i*size+j],bit);
+            sum = mat1.sum_el(mat1.mas[i*size+j],mat2.mas[i*size+j]);
+            memcpy(ar[i*size+j],sum,bit);
         }
     }
-    mat1->mas = copy;
+    res.mas = ar;
+    return res;
+}
+
+struct Matric mult_Matric(struct Matric mat1,struct Matric mat2)
+{
+    int size = mat1.size;
+
+    assert(size > 0);
+    assert(mat1.size == mat2.size);
+
+    int bit = mat1.element_size;
+
+    void** ar = mat1.zero_matric(mat1.size);
+    void* sum;
+    void* mult;
+
+    struct Matric res = mat1;
+
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size;j++)
+        {
+            for(int z = 0; z < size; z++)
+            {
+                mult = mat1.mult_el(mat1.mas[i*size+z],mat2.mas[z*size+j]);
+                sum = mat1.sum_el(ar[i*size+j],mult);
+                memcpy(ar[i*size+j],sum,bit);
+            }
+        }
+    }
+    res.mas = ar;
+    return res;
 }

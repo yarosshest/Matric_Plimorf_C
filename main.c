@@ -76,6 +76,7 @@ int main() {
     {
         printf("Введите элементы матрицы второй матрицы для умножения\n");
         struct Matric Mat2;
+        struct Matric Mat3;
         if (type == 1)
         {
             Mat2 = init_int_Matric(sizeof(int), size, vvod_int_Matric(size));
@@ -87,14 +88,15 @@ int main() {
         printf("Вы ввели матрицу:\n");
         print_Matric(Mat2);
         printf("________________________________\n");
-        struct Matric otv = Mat1.mult(Mat1,Mat2);
+        Mat3 = mult_Matric(Mat1,Mat2);
         printf("Результат умножения:\n");
-        otv.print(otv);
+        print_Matric(Mat3);
     }
     if (action ==2)
     {
         printf("Введите элементы матрицы второй матрицы для суммирования\n");
         struct Matric Mat2;
+        struct Matric Mat3;
         if (type == 1)
         {
             Mat2 = init_int_Matric(sizeof(int), size, vvod_int_Matric(size));
@@ -104,11 +106,11 @@ int main() {
             Mat2 = init_compl_Matric(sizeof(struct compl), size, vvod_compl_Matric(size));
         }
         printf("Вы ввели матрицу:\n");
-        Mat2.print(Mat2);
+        print_Matric(Mat2);
         printf("________________________________\n");
-        struct Matric otv = Mat1.sum(Mat1,Mat2);
+        Mat3 = sum_Matric(Mat1,Mat2);
         printf("Результат сложения:\n");
-        otv.print(otv);
+        print_Matric(Mat3);
     }
     if (action ==3)
     {

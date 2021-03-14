@@ -3,7 +3,7 @@
 #include "Matric .h"
 #include "stdlib.h"
 #include <assert.h>
-void** sum_el_int(void* el1, void* el2)
+void* sum_el_int(void* el1, void* el2)
 {
     int a1 = *(int*) el1;
     int a2 = *(int*) el2;
@@ -11,6 +11,16 @@ void** sum_el_int(void* el1, void* el2)
     void* ret = &sum;
     return ret;
 }
+
+void* mult_el_int(void* el1, void* el2)
+{
+    int a1 = *(int*) el1;
+    int a2 = *(int*) el2;
+    int mult = a1 * a2;
+    void* ret = &mult;
+    return ret;
+}
+
 
 void print_el_int_Matric(void* el)
 {
@@ -45,6 +55,7 @@ struct Matric init_int_Matric(int element_size, int size,void** ar)
 
     cont.print_el = print_el_int_Matric;
     cont.sum_el =  sum_el_int;
+    cont.mult_el = mult_el_int;
 
     cont.mas = ar;
 

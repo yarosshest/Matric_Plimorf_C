@@ -41,8 +41,9 @@ struct Matric init_compl_Matric(int element_size, int size,void** ar)
     cont.mas = ar;
 
     cont.print_el = print_el_compl_Matric;
+    cont.sum_el = sum_compl;
+    cont.mult_el = mult_compl;
     cont.zero_matric = zero_compl_Matric;
-
     return cont;
 }
 
@@ -50,7 +51,7 @@ void ** vvod_compl_Matric(int size)
 {
     struct compl c;
     struct compl *a = (struct compl*)calloc(1,size*size * sizeof(struct compl));
-    void** ar = (void**)malloc(size*size * sizeof(a));
+    void** ar = (void**)calloc(1,size*size * sizeof(a));
 
     for (int i = 0; i < size; i++)
     {
