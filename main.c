@@ -43,16 +43,16 @@ int main() {
     if (type == 1)
     {
         printf("Введите элементы матрицы\n");
-        Mat1 = init_int_Matric(sizeof(int), size, vvod_int_Matric(size));
+        Mat1 = init_int_Matric(sizeof(int), size,vvod_int_Matric(size));
     }
     else if (type == 2)
     {
         printf("Введите элементы матрицы, разделяя вещественную часть и мнимою пробелом\n");
-        Mat1 = init_compl_Matric(sizeof(int), size, vvod_compl_Matric(size));
+        Mat1 = init_compl_Matric(sizeof(struct compl), size, vvod_compl_Matric(size));
     }
     printf("____________________________\n");
     printf("Вы ввели матрицу:\n");
-    Mat1.print(Mat1);
+    print_Matric(Mat1);
     printf("____________________________\n");
 
     int action;
@@ -76,45 +76,47 @@ int main() {
     {
         printf("Введите элементы матрицы второй матрицы для умножения\n");
         struct Matric Mat2;
+        struct Matric Mat3;
         if (type == 1)
         {
             Mat2 = init_int_Matric(sizeof(int), size, vvod_int_Matric(size));
         }
         else if (type == 2)
         {
-            Mat2 = init_compl_Matric(sizeof(int), size, vvod_compl_Matric(size));
+            Mat2 = init_compl_Matric(sizeof(struct compl), size, vvod_compl_Matric(size));
         }
         printf("Вы ввели матрицу:\n");
-        Mat2.print(Mat2);
+        print_Matric(Mat2);
         printf("________________________________\n");
-        struct Matric otv = Mat1.mult(Mat1,Mat2);
+        Mat3 = mult_Matric(Mat1,Mat2);
         printf("Результат умножения:\n");
-        otv.print(otv);
+        print_Matric(Mat3);
     }
     if (action ==2)
     {
         printf("Введите элементы матрицы второй матрицы для суммирования\n");
         struct Matric Mat2;
+        struct Matric Mat3;
         if (type == 1)
         {
             Mat2 = init_int_Matric(sizeof(int), size, vvod_int_Matric(size));
         }
         else if (type == 2)
         {
-            Mat2 = init_compl_Matric(sizeof(int), size, vvod_compl_Matric(size));
+            Mat2 = init_compl_Matric(sizeof(struct compl), size, vvod_compl_Matric(size));
         }
         printf("Вы ввели матрицу:\n");
-        Mat2.print(Mat2);
+        print_Matric(Mat2);
         printf("________________________________\n");
-        struct Matric otv = Mat1.sum(Mat1,Mat2);
+        Mat3 = sum_Matric(Mat1,Mat2);
         printf("Результат сложения:\n");
-        otv.print(otv);
+        print_Matric(Mat3);
     }
     if (action ==3)
     {
-        struct Matric otv = Mat1.trans(Mat1);
+        trans_Matric(&Mat1);
         printf("Результат транспонирования:\n");
-        otv.print(otv);
+        print_Matric(Mat1);
     }
     return 0;
 }

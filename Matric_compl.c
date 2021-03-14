@@ -4,116 +4,64 @@
 #include "Matric .h"
 #include "compl_num.h"
 #include <assert.h>
+#include <string.h>
 
-struct Matric init_compl_Matric(int element_size, int size,void* ar)
+void print_el_compl_Matric(void* el)
 {
-    assert(size > 0);
-    struct Matric_compl *arT = (struct Matric_compl* ) calloc(1, sizeof (struct Matric_compl));
-    arT->mas = ar;
+    struct compl a = *(struct compl*) el;
 
-    struct Matric cont = init_Matric(arT);
-
-    cont.mult = mult_compl_Matric;
-    cont.sum = sum_compl_Matric;
-    cont.trans = trans_compl_Matric;
-    cont.element_size = element_size;
-    cont.size = size;
-    cont.print = print_compl_Matric;
-
-    return cont;
-}
-
-struct Matric mult_compl_Matric(struct Matric mat1, struct Matric mat2)
-{
-    assert(mat1.size == mat2.size);
-    assert(mat1.element_size == mat2.element_size);
-
-    struct Matric_compl m1 = *( struct Matric_compl *)(mat1.arT);
-    struct Matric_compl m2 = *( struct Matric_compl *)(mat2.arT);
-
-    int size =mat1.size;
-
-    struct compl *mr = (struct compl*)calloc(1,size * size * sizeof(struct compl));
-    struct Matric ret = init_compl_Matric(sizeof(struct compl),size,mr);
-
-    for (int i = 0; i < size; i++)
+    if (a.y>=0)
     {
-        for (int j = 0; j <size;j++)
-        {
-            for(int z = 0; z < size; z++)
-            {
-                struct compl mult = mult_compl(m1.mas[i*size+z],m2.mas[z*size+j]);
-                mr[i*size+j] = sum_compl(mr[i*size+j],mult);
-            }
-        }
+        printf(" %d+%di |",a.x,a.y);
     }
-    return ret;
-}
-
-struct Matric sum_compl_Matric(struct Matric mat1, struct Matric mat2)
-{
-    assert(mat1.size == mat2.size);
-    assert(mat1.element_size == mat2.element_size);
-    struct Matric_compl m1 = *( struct Matric_compl *)(mat1.arT);
-    struct Matric_compl m2 = *( struct Matric_compl *)(mat2.arT);
-
-    int size =mat1.size;
-
-    struct compl *mr = (struct compl*)calloc(1,size * size * sizeof(struct compl));
-    struct Matric ret = init_compl_Matric(sizeof(struct compl),size,mr);
-
-    for (int i = 0; i < size; i++)
+    else
     {
-        for (int j = 0; j <size;j++)
-        {
-            struct compl sum = sum_compl(m1.mas[i*size+j],m2.mas[i*size+j]);
-            mr[i*size+j] = sum_compl(mr[i*size+j],sum);
-        }
+        printf(" %d%di |",a.x,a.y);
     }
-    return ret;
 }
 
-struct Matric trans_compl_Matric(struct Matric mat1)
+void ** zero_compl_Matric(int size)
 {
-    struct Matric_compl m1 = *( struct Matric_compl *)(mat1.arT);
-
-    int size =mat1.size;
-
-    struct compl *mr = (struct compl*)calloc(1,size * size * sizeof(struct compl));
-    struct Matric ret = init_compl_Matric(sizeof(struct Matric_compl),size,mr);
-
-    for (int i = 0; i < size; i++)
-    {
-        for (int j = 0; j <=i;j++)
-        {
-            struct compl b = m1.mas[i*size+j];
-            mr[i*size+j] = m1.mas[j*size+i];
-            mr[j*size+i] = b;
-        }
-    }
-    return ret;
-}
-
-
-void print_compl_Matric(struct Matric mat)
-{
-    struct Matric_compl m = *( struct Matric_compl *)(mat.arT);
-
-    int size =mat.size;
-
+    struct compl* a = (struct compl *) calloc(1, size * size * sizeof(struct compl));
+    void** ar = (void **) calloc(1,size * size*sizeof(a));
+    struct compl zero;
+    zero.x = 0;
+    zero.y = 0;
     for (int i = 0; i < size; i++)
     {
         for (int j = 0; j < size;j++)
         {
-            printf(" %d+%di |",m.mas[i*size+j].x,m.mas[i*size+j].y);
+            a[i*size+j] = zero;
+            ar[i*size+j] = &a[i*size+j];
+
         }
-        printf("\n");
     }
+    return ar;
 }
-struct compl * vvod_compl_Matric(int size)
+
+struct Matric init_compl_Matric(int element_size, int size,void** ar)
+{
+    assert(size > 0);
+
+    struct Matric cont;
+
+    cont.element_size = element_size;
+    cont.size = size;
+
+    cont.mas = ar;
+
+    cont.print_el = print_el_compl_Matric;
+    cont.sum_el = sum_compl;
+    cont.mult_el = mult_compl;
+    cont.zero_matric = zero_compl_Matric;
+    return cont;
+}
+
+void ** vvod_compl_Matric(int size)
 {
     struct compl c;
     struct compl *a = (struct compl*)calloc(1,size*size * sizeof(struct compl));
+    void** ar = (void**)calloc(1,size*size * sizeof(a));
 
     for (int i = 0; i < size; i++)
     {
@@ -124,8 +72,9 @@ struct compl * vvod_compl_Matric(int size)
             scanf("%d%d", &x, &y);
             c.x = x;
             c.y = y;
-            a[i*size+j] = c;
+            memcpy(&a[i*size+j],&c,sizeof(struct compl));
+            ar[i*size+j] = &a[i*size+j];
         }
     }
-    return a;
+    return ar;
 }
