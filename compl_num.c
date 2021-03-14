@@ -18,6 +18,6 @@ void* mult_compl (void* c1,void* c2)
 
     struct compl * res = (struct compl*)calloc(1,sizeof(struct compl));
     res->x = cp1.x * cp2.x - cp1.y * cp2.y;
-    res->y = cp1.y *cp1.x + cp2.y *cp2.x;
+    res->y = cp1.x * cp2.y + cp2.x * cp1.y;
     return res;
 }

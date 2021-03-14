@@ -85,7 +85,9 @@ struct Matric mult_Matric(struct Matric mat1,struct Matric mat2)
             for(int z = 0; z < size; z++)
             {
                 mult = mat1.mult_el(mat1.mas[i*size+z],mat2.mas[z*size+j]);
+                struct compl* test1 = (struct compl*) mult;
                 sum = mat1.sum_el(ar[i*size+j],mult);
+                struct compl* test2 = (struct compl*) sum;
                 memcpy(ar[i*size+j],sum,bit);
             }
         }

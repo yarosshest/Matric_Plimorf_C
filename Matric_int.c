@@ -5,20 +5,21 @@
 #include <assert.h>
 void* sum_el_int(void* el1, void* el2)
 {
-    int a1 = *(int*) el1;
-    int a2 = *(int*) el2;
-    int sum = a1 + a2;
-    void* ret = &sum;
-    return ret;
+
+    int a1 = *((int*) el1);
+    int a2 = *((int*) el2);
+    int* sum =  (int*) calloc(1,sizeof(int));
+    *sum = a1 + a2;
+    return sum;
 }
 
 void* mult_el_int(void* el1, void* el2)
 {
-    int a1 = *(int*) el1;
-    int a2 = *(int*) el2;
-    int mult = a1 * a2;
-    void* ret = &mult;
-    return ret;
+    int a1 = *((int*) el1);
+    int a2 = *((int*) el2);
+    int* mult =  (int*) calloc(1,sizeof(int));
+    *mult = a1 * a2;
+    return mult;
 }
 
 
