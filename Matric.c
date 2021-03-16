@@ -2,10 +2,9 @@
 #include <vcruntime_string.h>
 #include <stdio.h>
 #include <assert.h>
-#include "Matric .h"
+#include "Matric.h"
 #include "Matric_int.h"
-
-
+#include <stdbool.h>
 void print_Matric(struct Matric mat)
 {
     int size = mat.size;
@@ -94,4 +93,24 @@ struct Matric mult_Matric(struct Matric mat1,struct Matric mat2)
     }
     res.mas = ar;
     return res;
+}
+bool equal_Matric(struct Matric mat1, struct Matric mat2)
+{
+    int size = mat1.size;
+
+    assert(size > 0);
+    assert(mat1.size == mat2.size);
+
+    bool flag = true;
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size;j++)
+        {
+            if(!mat1.equal_el(mat1.mas[i*size+j],mat2.mas[i*size+j]))
+            {
+                flag = false;
+            }
+        }
+    }
+    return flag;
 }

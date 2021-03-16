@@ -1,18 +1,39 @@
 #include <stdio.h>
-#include "Matric .h"
+#include "Matric.h"
 #include "Matric_int.h"
 #include "stdlib.h"
 #include "string.h"
 #include "compl_num.h"
 #include "Matric_compl.h"
-int main() {
+#include "Ctest/ctest.h"
+#include <stdbool.h>
+
+//CTEST(suite,test1)
+//{
+//    int testIn[4] = {1,2,3,4};
+//    int testOut[4] = {1,3,2,4};
+//
+//    void** arIn = transform_ar_int(testIn,4);
+//    void** arOut = transform_ar_int(testOut,4);
+//
+//    struct Matric test = init_int_Matric(4,arOut);
+//    struct Matric Mat1 = init_int_Matric(4,arIn);
+//    trans_Matric(&Mat1);
+//
+//    ASSERT_EQUAL(true,equal_Matric(Mat1,test));
+//
+//}
+
+int main()
+{
+
     int pass = 0;
     int type;
     int size;
-    printf("¢Î°•‡®‚• ‚®Ø ¨†‚‡®ÊÎ\n");
+    printf("–í–≤–µ–¥–∏—Ç–µ —Ç–∏–ø –º–∞—Ç—Ä–∏—Ü—ã\n");
     while (pass == 0)
     {
-        printf("1-¨†‡®Ê† Ê•´ÎÂ Á®·´•´ || 2-¨†‡®Ê† ™Æ¨Ø´•™·Î≠Â Á®·´•´ \n");
+        printf("1-–º–∞—Ç—Ä–∏—Ü–∞ —Ü–µ–ª—ã—Ö —á–∏—Å–ª–µ–ª || 2-–º–∞—Ç—Ä–∏—Ü–∞ –∫–æ–º–ø–ª–µ–∫—Å—ã–Ω—Ö —á–∏—Å–ª–µ–ª\n");
         scanf("%d", &type);
         if ((type == 1) || (type == 2))
         {
@@ -20,13 +41,13 @@ int main() {
         }
         else
         {
-            printf("¢¢•§®‚• ß≠†Á•≠®• ®ß Ø‡•´Æ¶•≠≠ÎÂ!\n");
+            printf("–≤–≤–µ–¥–∏—Ç–µ –∑–Ω–∞—á–µ–Ω–∏–µ –∏–∑ –ø—Ä–µ–ª–æ–∂–µ–Ω–Ω—ã—Ö!\n");
             printf("________________________________\n");
         }
     }
     while (pass == 1)
     {
-        printf("¢Î°•‡®‚• ‡†ß¨•‡ ¨†‚‡®ÊÎ n>0\n");
+        printf("–≤—ã–±–µ—Ä–∏—Ç–µ —Ä–∞–∑–º–µ—Ä –º–∞—Ç—Ä–∏—Ü—ã n>0\n");
         scanf("%d", &size);
         if (size > 0)
         {
@@ -34,7 +55,7 @@ int main() {
         }
         else
         {
-            printf("¢¢•§®‚• ß≠†Á•≠®• ®ß °Æ´ÏË• 0\n");
+            printf("–≤–≤–µ–¥–∏—Ç–µ –∑–Ω–∞—á–µ–Ω–∏–µ n>0\n");
             printf("____________________________\n");
         }
     }
@@ -42,24 +63,24 @@ int main() {
     struct Matric Mat1;
     if (type == 1)
     {
-        printf("Ç¢•§®‚• Ì´•¨•≠‚Î ¨†‚‡®ÊÎ\n");
-        Mat1 = init_int_Matric(sizeof(int), size,vvod_int_Matric(size));
+        printf("–í–≤–µ–¥–∏—Ç–µ —ç–ª–µ–º–µ–Ω—Ç—ã –º–∞—Ç—Ä–∏—Ü—ã\n");
+        Mat1 = init_int_Matric(size,vvod_int_Matric(size));
     }
     else if (type == 2)
     {
-        printf("Ç¢•§®‚• Ì´•¨•≠‚Î ¨†‚‡®ÊÎ, ‡†ß§•´ÔÔ ¢•È•·‚¢•≠≠„Ó Á†·‚Ï ® ¨≠®¨ÆÓ Ø‡Æ°•´Æ¨\n");
-        Mat1 = init_compl_Matric(sizeof(struct compl), size, vvod_compl_Matric(size));
+        printf("–í–≤–µ–¥–∏—Ç–µ —ç–ª–µ–º–µ–Ω—Ç—ã –º–∞—Ç—Ä–∏—Ü—ã, —Ä–∞–∑–¥–µ–ª—è—è –≤–µ—â–µ—Å—Ç–≤–µ–Ω–Ω—É—é —á–∞—Å—Ç—å –∏ –º–Ω–∏–º–æ—é –ø—Ä–æ–±–µ–ª–æ–º\n");
+        Mat1 = init_compl_Matric(size, vvod_compl_Matric(size));
     }
     printf("____________________________\n");
-    printf("ÇÎ ¢¢•´® ¨†‚‡®Ê„:\n");
+    printf("–í—ã –≤–≤–µ–ª–∏ –º–∞—Ç—Ä–∏—Ü—É:\n");
     print_Matric(Mat1);
     printf("____________________________\n");
 
     int action;
-    printf("¢Î°•‡®‚• §•©·‚¢®• ≠†§ ¨†‚‡®Ê•©\n");
+    printf("–≤—ã–±–µ—Ä–∏—Ç–µ –¥–µ–π—Å—Ç–≤–∏–µ –Ω–∞–¥ –º–∞—Ç—Ä–∏—Ü–µ–π\n");
     while (pass == 2)
     {
-        printf("1-ì¨≠Æ¶•≠®• || 2-ë´Æ¶•≠®• || 3-í‡†≠·ØÆ≠®‡Æ¢†≠®• \n");
+        printf("1-–£–º–Ω–æ–∂–µ–Ω–∏–µ || 2-–°–ª–æ–∂–µ–Ω–∏–µ || 3-–¢—Ä–∞–Ω—Å–ø–æ–Ω–∏—Ä–æ–≤–∞–Ω–∏–µ\n");
         scanf("%d", &action);
         if ((action == 1) || (action == 2) || (action == 3))
         {
@@ -67,55 +88,55 @@ int main() {
         }
         else
         {
-            printf("¢¢•§®‚• ß≠†Á•≠®• ®ß Ø‡•´Æ¶•≠≠ÎÂ!\n");
+            printf("–≤–≤–µ–¥–∏—Ç–µ –∑–Ω–∞—á–µ–Ω–∏–µ –∏–∑ –ø—Ä–µ–ª–æ–∂–µ–Ω–Ω—ã—Ö\n");
             printf("________________________________\n");
         }
     }
     printf("________________________________\n");
     if (action ==1)
     {
-        printf("Ç¢•§®‚• Ì´•¨•≠‚Î ¨†‚‡®ÊÎ ¢‚Æ‡Æ© ¨†‚‡®ÊÎ §´Ô „¨≠Æ¶•≠®Ô\n");
+        printf("–í–≤–µ–¥–∏—Ç–µ —ç–ª–µ–º–µ–Ω—Ç—ã –≤—Ç–æ—Ä–æ–π –º–∞—Ç—Ä–∏—Ü—ã –¥–ª—è —É–º–Ω–æ–∂–µ–Ω–∏—è\n");
         struct Matric Mat2;
         struct Matric Mat3;
         if (type == 1)
         {
-            Mat2 = init_int_Matric(sizeof(int), size, vvod_int_Matric(size));
+            Mat2 = init_int_Matric(size, vvod_int_Matric(size));
         }
         else if (type == 2)
         {
-            Mat2 = init_compl_Matric(sizeof(struct compl), size, vvod_compl_Matric(size));
+            Mat2 = init_compl_Matric(size, vvod_compl_Matric(size));
         }
-        printf("ÇÎ ¢¢•´® ¨†‚‡®Ê„:\n");
+        printf("–í—ã –≤–≤–µ–ª–∏ –º–∞—Ç—Ä–∏—Ü—É:\n");
         print_Matric(Mat2);
         printf("________________________________\n");
         Mat3 = mult_Matric(Mat1,Mat2);
-        printf("ê•ß„´Ï‚†‚ „¨≠Æ¶•≠®Ô:\n");
+        printf("–†–µ–∑—É–ª—å—Ç–∞—Ç —É–º–Ω–æ–∂–µ–Ω–∏—è:\n");
         print_Matric(Mat3);
     }
     if (action ==2)
     {
-        printf("Ç¢•§®‚• Ì´•¨•≠‚Î ¨†‚‡®ÊÎ ¢‚Æ‡Æ© ¨†‚‡®ÊÎ §´Ô ·„¨¨®‡Æ¢†≠®Ô\n");
+        printf("–í–≤–µ–¥–∏—Ç–µ —ç–ª–µ–º–µ–Ω—Ç—ã –≤—Ç–æ—Ä–æ–π –º–∞—Ç—Ä–∏—Ü—ã –¥–ª—è —Å—É–º–º–∏—Ä–æ–≤–∞–Ω–∏—è\n");
         struct Matric Mat2;
         struct Matric Mat3;
         if (type == 1)
         {
-            Mat2 = init_int_Matric(sizeof(int), size, vvod_int_Matric(size));
+            Mat2 = init_int_Matric(size, vvod_int_Matric(size));
         }
         else if (type == 2)
         {
-            Mat2 = init_compl_Matric(sizeof(struct compl), size, vvod_compl_Matric(size));
+            Mat2 = init_compl_Matric(size, vvod_compl_Matric(size));
         }
-        printf("ÇÎ ¢¢•´® ¨†‚‡®Ê„:\n");
+        printf("–í—ã –≤–≤–µ–ª–∏ –º–∞—Ç—Ä–∏—Ü—É:\n");
         print_Matric(Mat2);
         printf("________________________________\n");
         Mat3 = sum_Matric(Mat1,Mat2);
-        printf("ê•ß„´Ï‚†‚ ·´Æ¶•≠®Ô:\n");
+        printf("–†–µ–∑—É–ª—å—Ç–∞—Ç —Å—É–º–º–∏—Ä–æ–≤–∞–Ω–∏—è:\n");
         print_Matric(Mat3);
     }
     if (action ==3)
     {
         trans_Matric(&Mat1);
-        printf("ê•ß„´Ï‚†‚ ‚‡†≠·ØÆ≠®‡Æ¢†≠®Ô:\n");
+        printf("–†–µ–∑—É–ª—å—Ç–∞—Ç —Ç—Ä–∞–Ω—Å–ø–æ–Ω–∏—Ä–æ–≤–∞–Ω–∏z:\n");
         print_Matric(Mat1);
     }
     return 0;
