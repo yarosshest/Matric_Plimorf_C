@@ -20,23 +20,6 @@ void print_el_compl_Matric(void* el)
     }
 }
 
-bool equal_el_compl(void *el1,void *el2)
-{
-    struct compl a1 = *((struct compl*) el1);
-    struct compl a2 = *((struct compl*) el2);
-    bool flag;
-
-    if ((a1.x == a2.x)&&(a1.y == a2.y))
-    {
-        flag = true;
-    }
-    else
-    {
-        flag = false;
-    }
-    return flag;
-}
-
 void ** zero_compl_Matric(int size)
 {
     struct compl* a = (struct compl *) calloc(1, size * size * sizeof(struct compl));
@@ -56,6 +39,23 @@ void ** zero_compl_Matric(int size)
     return ar;
 }
 
+bool equal_el_compl(void *el1,void *el2)
+{
+    struct compl a1 = *((struct compl*) el1);
+    struct compl a2 = *((struct compl*) el2);
+    bool flag;
+
+    if ((a1.x == a2.x)&&(a1.y == a2.y))
+    {
+        flag = true;
+    }
+    else
+    {
+        flag = false;
+    }
+    return flag;
+}
+
 struct Matric init_compl_Matric(int size,void** ar)
 {
     assert(size > 0);
@@ -70,9 +70,8 @@ struct Matric init_compl_Matric(int size,void** ar)
     cont.print_el = print_el_compl_Matric;
     cont.sum_el = sum_compl;
     cont.mult_el = mult_compl;
-    cont.equal_el = equal_el_compl;
-
     cont.zero_matric = zero_compl_Matric;
+    cont.equal_el = equal_el_compl;
     return cont;
 }
 

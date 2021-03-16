@@ -5,27 +5,90 @@
 #include "string.h"
 #include "compl_num.h"
 #include "Matric_compl.h"
-#include "Ctest/ctest.h"
-#include <stdbool.h>
+#include <windows.h>
 
-//CTEST(suite,test1)
-//{
-//    int testIn[4] = {1,2,3,4};
-//    int testOut[4] = {1,3,2,4};
-//
-//    void** arIn = transform_ar_int(testIn,4);
-//    void** arOut = transform_ar_int(testOut,4);
-//
-//    struct Matric test = init_int_Matric(4,arOut);
-//    struct Matric Mat1 = init_int_Matric(4,arIn);
-//    trans_Matric(&Mat1);
-//
-//    ASSERT_EQUAL(true,equal_Matric(Mat1,test));
-//
-//}
 
-int main()
+void tests1()
 {
+    int testIn[4] = {1,2,3,4};
+    int testOut[4] = {1,3,2,4};
+
+    void** arIn = transform_ar_int(testIn,2);
+    void** arOut = transform_ar_int(testOut,2);
+
+    struct Matric test = init_int_Matric(2,arOut);
+    struct Matric Mat1 = init_int_Matric(2,arIn);
+    trans_Matric(&Mat1);
+
+    if (true == equal_Matric(Mat1,test))
+    {
+        printf("test1: pass\n");
+    }
+    else
+    {
+        printf("test1: fail\n");
+    }
+}
+
+void tests2()
+{
+    int testIn1[4] = {1,2,3,4};
+    int testIn2[4] = {0,0,0,0};
+    int testOut[4] = {1,2,3,4};
+
+    void** arIn1 = transform_ar_int(testIn1,2);
+    void** arIn2 = transform_ar_int(testIn2,2);
+    void** arOut = transform_ar_int(testOut,2);
+
+    struct Matric test = init_int_Matric(2,arOut);
+    struct Matric Mat1 = init_int_Matric(2,arIn1);
+    struct Matric Mat2 = init_int_Matric(2,arIn2);
+    struct Matric otv;
+    otv = sum_Matric(Mat1,Mat2);
+    if (true == equal_Matric(otv,test))
+    {
+        printf("test2: pass\n");
+    }
+    else
+    {
+        printf("test2: fail\n");
+    }
+}
+
+void tests3()
+{
+    int testIn1[4] = {1,2,3,4};
+    int testIn2[4] = {0,0,0,0};
+    int testOut[4] = {0,0,0,0};
+
+    void** arIn1 = transform_ar_int(testIn1,2);
+    void** arIn2 = transform_ar_int(testIn2,2);
+    void** arOut = transform_ar_int(testOut,2);
+
+    struct Matric test = init_int_Matric(2,arOut);
+    struct Matric Mat1 = init_int_Matric(2,arIn1);
+    struct Matric Mat2 = init_int_Matric(2,arIn2);
+    struct Matric otv;
+    otv = mult_Matric(Mat1,Mat2);
+    if (true == equal_Matric(otv,test))
+    {
+        printf("test3: pass\n");
+    }
+    else
+    {
+        printf("test3: fail\n");
+    }
+}
+
+int main() {
+    SetConsoleOutputCP(CP_UTF8);
+    bool debug = true;
+    if (debug)
+    {
+        tests1();
+        tests2();
+        tests3();
+    }
 
     int pass = 0;
     int type;
@@ -136,7 +199,7 @@ int main()
     if (action ==3)
     {
         trans_Matric(&Mat1);
-        printf("Результат транспонированиz:\n");
+        printf("Результат транспонирования:\n");
         print_Matric(Mat1);
     }
     return 0;

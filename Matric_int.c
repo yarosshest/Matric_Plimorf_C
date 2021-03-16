@@ -3,7 +3,6 @@
 #include "Matric.h"
 #include "stdlib.h"
 #include <assert.h>
-#include <stdbool.h>
 void* sum_el_int(void* el1, void* el2)
 {
 
@@ -40,6 +39,7 @@ bool equal_el_int(void *el1,void *el2)
     return flag;
 }
 
+
 void print_el_int_Matric(void* el)
 {
     int a = *(int*) el;
@@ -69,12 +69,12 @@ struct Matric init_int_Matric(int size,void** ar)
 
     cont.element_size = sizeof(int);
     cont.size = size;
-
     cont.zero_matric = zero_int_Matric;
-    cont.print_el = print_el_int_Matric;
 
+    cont.print_el = print_el_int_Matric;
     cont.sum_el =  sum_el_int;
     cont.mult_el = mult_el_int;
+
     cont.equal_el = equal_el_int;
 
     cont.mas = ar;
@@ -110,7 +110,8 @@ void ** transform_ar_int(int inar [], int size)
     {
         for (int j = 0; j < size;j++)
         {
-            ar[i*size+j] = &inar[i];
+            a[i*size+j] = inar[i*size+j];
+            ar[i*size+j] = &a[i*size+j];
         }
     }
     return ar;
