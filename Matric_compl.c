@@ -1,7 +1,7 @@
 ﻿#include <stdlib.h>
 #include <stdio.h>
 #include "Matric_compl.h"
-#include "Matric .h"
+#include "Matric.h"
 #include "compl_num.h"
 #include <assert.h>
 #include <string.h>
@@ -18,6 +18,23 @@ void print_el_compl_Matric(void* el)
     {
         printf(" %d%di |",a.x,a.y);
     }
+}
+
+bool equal_el_compl(void *el1,void *el2)
+{
+    struct compl a1 = *((struct compl*) el1);
+    struct compl a2 = *((struct compl*) el2);
+    bool flag;
+
+    if ((a1.x == a2.x)&&(a1.y == a2.y))
+    {
+        flag = true;
+    }
+    else
+    {
+        flag = false;
+    }
+    return flag;
 }
 
 void ** zero_compl_Matric(int size)
@@ -39,13 +56,13 @@ void ** zero_compl_Matric(int size)
     return ar;
 }
 
-struct Matric init_compl_Matric(int element_size, int size,void** ar)
+struct Matric init_compl_Matric(int size,void** ar)
 {
     assert(size > 0);
 
     struct Matric cont;
 
-    cont.element_size = element_size;
+    cont.element_size = sizeof(struct compl);
     cont.size = size;
 
     cont.mas = ar;
@@ -53,6 +70,8 @@ struct Matric init_compl_Matric(int element_size, int size,void** ar)
     cont.print_el = print_el_compl_Matric;
     cont.sum_el = sum_compl;
     cont.mult_el = mult_compl;
+    cont.equal_el = equal_el_compl;
+
     cont.zero_matric = zero_compl_Matric;
     return cont;
 }
